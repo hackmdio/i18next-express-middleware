@@ -1,4 +1,5 @@
 import Cookies from 'cookies';
+import * as utils from '../utils';
 
 export default {
   name: 'cookie',
@@ -39,7 +40,8 @@ export default {
         cookieOptions.secure = options.cookieSecure;
       }
 
-      cookies.set(options.lookupCookie, lng, cookieOptions);
+      const validLng = utils.trimInvalidCookieCharacters(lng);
+      cookies.set(options.lookupCookie, validLng, cookieOptions);
     }
   }
 };

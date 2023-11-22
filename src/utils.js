@@ -58,3 +58,15 @@ export function removeLngFromUrl(url, lookupFromPathIndex) {
 
   return url;
 }
+
+export function trimInvalidHeaderCharacters(input) {
+  const invalidTChar = /[^!#$%&'*+\-.^_`|~0-9a-zA-Z]/g;
+  return input.replace(invalidTChar, '');
+}
+
+
+export function trimInvalidCookieCharacters(input) {
+  const invalidFieldContent = /[^\u0009\u0020-\u007e\u0080-\u00ff]/g;
+  return input.replace(invalidFieldContent, '');
+}
+
