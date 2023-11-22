@@ -3,6 +3,11 @@ import LD from './LanguageDetector';
 
 export var LanguageDetector = LD;
 
+function trimInvalidHeaderCharacters(input) {
+  const invalidTChar = /[^!#$%&'*+\-.^_`|~0-9a-zA-Z]/g;
+  return input.replace(invalidTChar, '');
+}
+
 export function handle(i18next, options = {}) {
   return function i18nextMiddleware(req, res, next) {
     if (typeof options.ignoreRoutes === 'function') {
@@ -26,7 +31,8 @@ export function handle(i18next, options = {}) {
         }
 
         if (!res.headersSent && lng) {
-          res.setHeader('Content-Language', lng);
+          const headerLang = trimInvalidHeaderCharacters(lng);
+          res.setHeader('Content-Language', headerLang);
         }
 
         req.languages = i18next.services.languageUtils.toResolveHierarchy(lng);
@@ -42,7 +48,8 @@ export function handle(i18next, options = {}) {
     // set locale
     req.language = req.locale = req.lng = lng;
     if (!res.headersSent && lng) {
-      res.setHeader('Content-Language', lng);
+      const headerLang = trimInvalidHeaderCharacters(lng);
+      res.setHeader('Content-Language', headerLang);
     }
     req.languages = i18next.services.languageUtils.toResolveHierarchy(lng);
 
