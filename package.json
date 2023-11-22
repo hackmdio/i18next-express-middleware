@@ -1,5 +1,5 @@
 {
-  "name": "i18next-express-middleware",
+  "name": "@hackmd/i18next-express-middleware",
   "version": "2.0.0",
   "description": "express middleware for i18next",
   "main": "./lib/index.js",
