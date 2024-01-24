@@ -40,6 +40,9 @@ export function handle(i18next, options = {}) {
     let lng = req.lng;
     if (!req.lng && i18next.services.languageDetector) lng = i18next.services.languageDetector.detect(req, res);
 
+    // make sure lng is a plain text file name
+    lng = encodeURIComponent(lng)
+
     // set locale
     req.language = req.locale = req.lng = lng;
     if (!res.headersSent && lng) {
